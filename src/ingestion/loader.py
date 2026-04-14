@@ -55,3 +55,8 @@ def load_documents(data_dir: str) -> List[Document]:
             print(f"Error occured while loading {file_path},{e}")
     print(f"[INFO] Loaded {len(docs)} documents from {data_dir}")
     return docs
+
+
+if __name__ == "__main__":
+    documents = load_documents("data")
+    print(f"Loaded {len(documents)} documents")
