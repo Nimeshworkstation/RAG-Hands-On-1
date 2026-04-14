@@ -16,7 +16,9 @@ def chunk_documents(documents: List[Document]) -> List[Document]:
     return chunks
 
 
+def main():
+    pass
+
+
 if __name__ == "__main__":
-    data = []
-    chunks = chunk_documents(data)
-    print(f"Splitted {data} into {len(chunks)} chunks")
+    main()

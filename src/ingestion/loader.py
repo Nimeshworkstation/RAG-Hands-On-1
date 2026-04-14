@@ -57,6 +57,9 @@ def load_documents(data_dir: str) -> List[Document]:
     return docs
 
 
+def main():
+    pass
+
+
 if __name__ == "__main__":
-    documents = load_documents("data")
-    print(f"Loaded {len(documents)} documents")
+    main()
