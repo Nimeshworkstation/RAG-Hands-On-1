@@ -10,10 +10,10 @@ client = chromadb.PersistentClient(path="../ingestion/chroma_db")
 collection = client.get_collection("my_docs")
 
 
-def get_context(query_embedding: np.ndarray) -> QueryResult:
+def get_context(query_embedding: np.ndarray, n_results: int = 3) -> QueryResult:
     results = collection.query(
         query_embeddings=[query_embedding],
-        n_results=3,
+        n_results=n_results,
         include=["documents", "metadatas", "distances"],
     )
     return results
