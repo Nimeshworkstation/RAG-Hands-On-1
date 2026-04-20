@@ -2,6 +2,8 @@ from typing import List
 from langchain_core.documents import Document
 from sentence_transformers import SentenceTransformer
 import numpy as np
+from loader import load_documents
+from splitter import chunk_documents
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -16,7 +18,12 @@ def embed_chunks(chunks: List[Document]) -> np.ndarray:
 
 
 def main():
-    pass
+    print("*" * 50)
+    docs = load_documents(r"..\..\data")
+    print("*" * 50)
+    chunks = chunk_documents(docs)
+    print("*" * 50)
+    embed_chunks(chunks)
 
 
 if __name__ == "__main__":

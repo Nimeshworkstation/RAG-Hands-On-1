@@ -1,6 +1,7 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from typing import List, Any
+from typing import List
 from langchain_core.documents import Document
+from loader import load_documents
 
 
 def chunk_documents(documents: List[Document]) -> List[Document]:
@@ -12,13 +13,16 @@ def chunk_documents(documents: List[Document]) -> List[Document]:
         separators=["\n\n", "\n", " ", ""],
     )
     chunks = splitter.split_documents(documents)
-    print(f"Splitted {documents} into {len(chunks)} chunks")
+    print(f"Splitted {len(documents)} into {len(chunks)} chunks")
 
     return chunks
 
 
 def main():
-    pass
+    docs = load_documents(r"..\..\data")
+    print("*" * 50)
+
+    chunk_documents(docs)
 
 
 if __name__ == "__main__":

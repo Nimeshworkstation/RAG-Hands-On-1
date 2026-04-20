@@ -15,6 +15,7 @@ def load_documents(data_dir: str) -> List[Document]:
 
     docs: List[Document] = []
     base_path = Path(data_dir)
+    print(base_path)
 
     if not base_path.exists():
         print(f"[WARN] Data directory not found: {data_dir}")
@@ -58,7 +59,7 @@ def load_documents(data_dir: str) -> List[Document]:
 
 
 def main():
-    pass
+    docs = load_documents(r"..\..\data")
 
 
 if __name__ == "__main__":
