@@ -1,5 +1,7 @@
 import chromadb
 import uuid
+import hashlib
+
 from langchain_core.documents import Document
 from typing import List
 import numpy as np
@@ -9,6 +11,14 @@ from embedder import embed_chunks
 
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection(name="my_docs")
+
+
+def create_chunk_id(chunk):
+    source = chunk.metadata.get("source", "")
+    page = chunk.metadata.get("page", "")
+    text = chunk.page_content
+    raw = f"{source}|{page}|{text}".encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
 
 
 def vector_store(chunks: List[Document], embeddings: np.ndarray):
@@ -21,12 +31,12 @@ def vector_store(chunks: List[Document], embeddings: np.ndarray):
     metadatas = []
 
     for chunk, embedding in zip(chunks, embeddings):
-        ids.append(str(uuid.uuid4()))
+        ids.append(create_chunk_id(chunk))
         documents.append(chunk.page_content)
         embeddings_list.append(embedding.tolist())
         metadatas.append(chunk.metadata)
 
-    collection.add(
+    collection.upsert(
         ids=ids, documents=documents, embeddings=embeddings_list, metadatas=metadatas
     )
 
