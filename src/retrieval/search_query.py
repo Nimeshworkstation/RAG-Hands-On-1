@@ -2,11 +2,14 @@ from typing import Any
 import numpy as np
 import chromadb
 from chromadb.api.types import QueryResult
-from embed_query import embed_query
+from .embed_query import embed_query
 import json
+from pathlib import Path
 
+DB_PATH = Path(__file__).resolve().parents[1] / "ingestion" / "chroma_db"
+print(DB_PATH)
 
-client = chromadb.PersistentClient(path="../ingestion/chroma_db")
+client = chromadb.PersistentClient(path=str(DB_PATH))
 collection = client.get_collection("my_docs")
 
 
